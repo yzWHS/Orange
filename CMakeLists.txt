@@ -19,6 +19,7 @@ add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 add_subdirectory(src/thirdparty)
 add_subdirectory(src/ui)
 add_subdirectory(src/app)
+add_subdirectory(src/systemcontext)
 
 # 主可执行文件
 add_executable(${PROJECT_NAME} WIN32)
@@ -28,4 +29,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Widgets
     OrangeUI
     OrangeApp
+    SystemContext
 )
