@@ -1,0 +1,38 @@
+# app 模块
+cmake_minimum_required(VERSION 3.5)
+
+# 查找 app 模块的源文件
+file(GLOB APP_SOURCES 
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc"
+)
+
+# 查找 app 模块的头文件
+file(GLOB APP_HEADERS 
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
+)
+
+# 创建 app 库
+add_library(OrangeApp STATIC
+    ${APP_SOURCES}
+    ${APP_HEADERS}
+)
+
+# 包含目录
+target_include_directories(OrangeApp PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+# 链接其他模块
+target_link_libraries(OrangeApp PRIVATE 
+    Qt6::Widgets
+    OrangeUI
+    OrangeThirdParty
+)
+
+# 如果 main.cpp 在 app/src 目录中，确保它被包含
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
+    message(STATUS "Found main.cpp in app module")
+endif()
